@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading;
+using System.Text;
+using System.Threading.Tasks;
 using Iot.Device.Common;
 using Iot.Device.SenseHat;
-using UnitsNet;
+using Microsoft.Azure.Devices.Client;
+using Newtonsoft.Json;
 
 // set this to the current sea level pressure in the area for correct altitude readings
 var defaultSeaLevelPressure = WeatherHelper.MeanSeaLevel;
@@ -11,6 +13,14 @@ var defaultSeaLevelPressure = WeatherHelper.MeanSeaLevel;
 using SenseHat sh = new SenseHat();
 int n = 0;
 int x = 3, y = 3;
+
+string deviceKey = "<deviceKey>";
+string deviceId = "<deviceId>";
+string iotHubHostName = "<IoTHubHostname>";
+int messageId = 1;
+var deviceAuthentication = new DeviceAuthenticationWithRegistrySymmetricKey(deviceId, deviceKey);
+DeviceClient deviceClient = DeviceClient.Create(iotHubHostName, deviceAuthentication, TransportType.Mqtt);
+
 
 while (true)
 {
@@ -49,7 +59,26 @@ while (true)
     Console.WriteLine($"Heat index: {WeatherHelper.CalculateHeatIndex(tempValue, humValue).DegreesCelsius:0.#}\u00B0C");
     Console.WriteLine($"Dew point: {WeatherHelper.CalculateDewPoint(tempValue, humValue).DegreesCelsius:0.#}\u00B0C");
 
-    Thread.Sleep(1000);
+    var telemetryDataPoint = new
+    {
+        messageId = messageId++,
+        deviceId = deviceId,
+        Temp1 = tempValue,
+        Temp2 = temp2Value,
+        Pressure = preValue,
+        Humidity = humValue,
+        Acceleration = accValue,
+        AngularRate = angValue,
+        MagneticInduction = magValue,
+        Altitude = altValue
+    };
+    string messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+    Message message = new Message(Encoding.ASCII.GetBytes(messageString));
+
+    await deviceClient.SendEventAsync(message);
+    Console.WriteLine(" Sending message: ", DateTime.Now, messageString);
+
+    await Task.Delay(1000);
 }
 
 (int, int, bool) JoystickState(SenseHat sh)
