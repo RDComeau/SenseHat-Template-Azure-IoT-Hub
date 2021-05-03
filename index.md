@@ -1,37 +1,20 @@
-## Welcome to GitHub Pages
+# SenseHat-Template-Azure-IoT-Hub
+This Repo is a Template for the Raspberry Pi SenseHat for Azure IoT Hub.
 
-You can use the [editor on GitHub](https://github.com/RDComeau/SenseHat-Template-Azure-IoT-Hub/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## RaspberyPi
+Before starting the project, you'll need to purchase a [Raspberry Pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) and the 
+[Sense Hat](https://www.raspberrypi.org/products/sense-hat/) that goes on top. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+Next, it is time to download the [Raspberry Pi Operating System](https://www.raspberrypi.org/software/).
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The image will be placed on a Micro SD card so ensure you have a Micro SD card and a Micro SD Card Reader. 
 
-```markdown
-Syntax highlighted code block
+To run this program, you'll need to ensure that you have the [.NET 5.0 SDK](https://dotnet.microsoft.com/download) on your Raspberry Pi.
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+You can also run this script built by Microsoft to download the .NET SDK.
+. <(wget -q -O - https://aka.ms/dotnet-iot-sensehat-quickstart)
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/RDComeau/SenseHat-Template-Azure-IoT-Hub/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Azure 
+To begin collecting telemetry data for Azure, an account in Azure will be necessary. Go to the [Azure Login](https://azure.microsoft.com/en-us/account/) to login or register. 
